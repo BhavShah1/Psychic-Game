@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Psychic Game</title>
+</head>
+
+<body>
+
+    <div>
+        <p id="DirectionText">Guess what letter I am thinking? <br> You have 10 tries! <br> Start by pressing a letter!</p>
+        <p id="GuessWin"></p>
+        <p id="GuessLoss"></p>
+        <p id="GuessesLeft"></p>
+        <p id="GuessAttempts"></p>
+    </div>
+
+    <script type="text/javascript">
+
+
+        //array for the user guess
+        var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+        var wins = 0;
+        var losses = 0;
+        var triesleft = 10;
+        var guesses = [];
+
+        var EmptyDirectionText = document.getElementById("DirectionText");
+        var gWin = document.getElementById("GuessWin");
+        var gLoss = document.getElementById("GuessLoss");
+        var gLeft = document.getElementById("GuessesLeft");
+        var gAttempts = document.getElementById("GuessAttempts");
+
+        var computerGuess 
+
+        //computers guess
+        function generate(){
+            computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        }
+        
+        generate();
+
+        //onclick function 
+        document.onkeyup = function (event) {
+
+            
+            
+            var userGuess = event.key;
+            
+            if (computerChoices.indexOf(userGuess) >= 0){
+
+                if (userGuess === computerGuess) {
+                wins++ 
+                triesleft = 10
+                guesses = []
+                generate();
+                console.log("is this true")
+                alert("AYYYY lets play again!")
+                }
+        
+                if ((userGuess !== computerGuess) && (triesleft === 0)){
+                    guesses = []
+                    losses++
+                    triesleft = 10
+                    console.log("is the valid")
+                } else {
+                    triesleft--
+                    // guesses =  [userGuess];
+                    guesses.push(userGuess);
+                    console.log("last option")
+                }           
+            }
+
+            EmptyDirectionText.textContent = " ";
+            gWin.textContent = "Wins: " + wins;
+            gLoss.textContent = "Losses: " + losses;
+            gLeft.textContent = "Number of guesses left: " + triesleft;
+            gAttempts.textContent = "Your guesses so far: " + guesses;
+
+        };
+
+    </script>
+
+    <style>
+    
+    body{
+
+    background-color: lightcyan;
+    }
+
+    div{
+        margin-left: 40%;
+    }
+    
+    </style>
+
+</body>
+
+
+</html>
